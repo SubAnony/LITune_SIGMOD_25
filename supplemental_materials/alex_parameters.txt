@@ -1,0 +1,127 @@
+
+// User-changeable parameters  (has original setter function)
+
+#define external_expectedInsertFrac 1
+    Range: [0,1]  0 - read-only workloads, 1 - write-only workloads
+    Default : 1
+
+#define external_maxNodeSize 1 << 24
+    Range: multiples of MB or powers of 2  (1 << 24 = 2^24 = 16MB, 
+                                            1 << 20 = 2^20 = 10MB)
+    Default: 1 << 24 or 16MB
+
+#define external_approximateModelComputation true
+    Range: Boolean (true/false) true - makes bulk load faster by sampling
+    Defult: true
+
+#define external_approximateCostComputation false
+    Range: Boolean (true/false) true - makes bulk load faster by sampling
+    Defult: true
+
+
+//Experimental parameters (may break the system)
+#define external_fanoutSelectionMethod 0
+    Range: 0 or 1 (0 = bottom up fanout tree, 1 = top down fanout tree)
+    Default: 0
+
+#define external_splittingPolicyMethod 1
+    Range: 0,1   (0 = always split node in 2, 
+                    1 = decide between no splitting or splitting in 2, 
+    Default: 0
+
+#define external_allowSplittingUpwards false
+    Range: Boolean (true/false) true - node split propagate up the tree (like B+tree)
+    Default: false
+
+//Constant parameters in ALEX
+#define external_kMinOutOfDomainKeys 5
+    Range: 0 - N-1, where N is number of keys. 
+            Decides the minimium out of domain inserts into node before expansion. 
+            (Larger means more keys before expand)
+            Essentially, minimium size of the buffer before expansion.
+    Default: 5
+
+#define external_kMaxOutOfDomainKeys 1000
+    Range: external_kMinOutOfDomainKeys+1 - N, where N is number of keys.
+            Decides the maximium out of domain inserts into node before expansion. 
+            (Larger means more keys before expand)
+            Essentially, maximium size of the buffer before expansion.
+    Default: 1000 (must be larger than external_kMinOutOfDomainKeys)
+
+#define external_kOutOfDomainToleranceFactor 2
+    Range: 1 - N, where N is number of keys. (This value is a factor, so 10 means 10x)
+            Controls whether to expand if out-of-domain key is between min and max limits.
+    Default: 2 (Don't make this value too large since it is a factor)
+
+
+#define external_kMaxDensity 0.8
+    Range: [0,1] Maxmium number of keys (without gaps) in each node.(Proportion to total size)
+                    Decides when to expand.
+    Default: 0.8 (Must be larger than kInitDensity and kMinDensity)
+                kMinDensity < kInitDensity < kMaxDensity
+
+#define external_kInitDensity 0.7
+    Range: [0,1]  Number of keys (without gaps) in each node after bulkload.(Proportion to total size)
+    Default: 0.7 (Must be larger than kMinDensity and smaller than kMaxDensity)
+                kMinDensity < kInitDensity < kMaxDensity
+
+#define external_kMinDensity 0.6
+    Range: [0,1]  Minimium number of keys (without gaps) in each node.(Proportion to total size)
+                    Decides when to contract.
+    Default: 0.7 (Must be smaller than kMaxDensity and kInitDensity)
+                kMinDensity < kInitDensity < kMaxDensity
+
+#define external_kAppendMostlyThreshold 0.9
+    Range: [0,1]  Determines when to consider workload is mostly append.
+    Default: 0.9
+
+
+Enhanced Version
+
+
+### User-changeable Parameters
+
+| Hyperparameter                       | Value           | Range                    | Description                                                                     | Default Value |
+|--------------------------------------|-----------------|--------------------------|---------------------------------------------------------------------------------|---------------|
+| external_expectedInsertFrac          | 1               | [0,1]                    | 0 - read-only workloads, 1 - write-only workloads                               | 1             |
+| external_maxNodeSize                 | 1 << 24         | multiples of MB or powers of 2 | 16MB for 1 << 24, 1MB for 1 << 20                                       | 1 << 24 (16MB) |
+| external_approximateModelComputation | true            | Boolean (true/false)     | true - makes bulk load faster by sampling                                       | true          |
+| external_approximateCostComputation  | false           | Boolean (true/false)     | true - makes bulk load faster by sampling                                       | false         |
+| external_maxInsertOpsPerSec          | 1000            | [0, ∞)                   | Maximum insert operations per second                                            | 1000          |
+| external_minSearchOpsPerSec          | 100             | [0, ∞)                   | Minimum search operations per second                                            | 100           |
+| external_maxUpdateOpsPerSec          | 500             | [0, ∞)                   | Maximum update operations per second                                            | 500           |
+| external_maxDeleteOpsPerSec          | 300             | [0, ∞)                   | Maximum delete operations per second                                            | 300           |
+
+### Experimental Parameters
+
+| Hyperparameter                       | Value           | Range                    | Description                                                                     | Default Value |
+|--------------------------------------|-----------------|--------------------------|---------------------------------------------------------------------------------|---------------|
+| external_fanoutSelectionMethod       | 0               | 0 or 1                   | 0 = bottom up fanout tree, 1 = top down fanout tree                             | 0             |
+| external_splittingPolicyMethod       | 1               | 0 or 1                   | 0 = always split node in 2, 1 = decide between no splitting or splitting in 2   | 1             |
+| external_allowSplittingUpwards       | false           | Boolean (true/false)     | true - node split propagate up the tree (like B+tree)                           | false         |
+| external_enableCompression           | true            | Boolean (true/false)     | Enables compression for nodes                                                   | true          |
+| external_compressionThreshold        | 0.75            | [0,1]                    | Threshold to trigger compression                                                | 0.75          |
+| external_mergePolicy                 | 1               | 0 or 1                   | 0 = always merge, 1 = conditional merging based on load                         | 1             |
+| external_enablePrefetching           | false           | Boolean (true/false)     | Enables prefetching of nodes                                                    | false         |
+| external_prefetchingDepth            | 2               | [0, ∞)                   | Depth of nodes to prefetch                                                      | 2             |
+| external_cacheSize                   | 512             | multiples of MB          | Size of the cache in MB                                                         | 512           |
+| external_cacheReplacementPolicy      | 0               | 0, 1, 2                  | 0 = LRU, 1 = LFU, 2 = Random                                                    | 0             |
+| external_backgroundEviction          | true            | Boolean (true/false)     | Enables background eviction of nodes from cache                                 | true          |
+
+### Constant Parameters in ALEX
+
+| Hyperparameter                       | Value           | Range                    | Description                                                                     | Default Value |
+|--------------------------------------|-----------------|--------------------------|---------------------------------------------------------------------------------|---------------|
+| external_kMinOutOfDomainKeys         | 5               | 0 - N-1                  | Minimum out of domain inserts into node before expansion.                       | 5             |
+| external_kMaxOutOfDomainKeys         | 1000            | kMinOutOfDomainKeys+1 - N| Maximum out of domain inserts into node before expansion.                       | 1000          |
+| external_kOutOfDomainToleranceFactor | 2               | 1 - N                    | Factor controlling expansion for out-of-domain key between min and max limits.  | 2             |
+| external_kMaxDensity                 | 0.8             | [0,1]                    | Maximum number of keys in each node (proportion to total size) before expansion.| 0.8           |
+| external_kInitDensity                | 0.7             | [0,1]                    | Number of keys in each node after bulkload (proportion to total size).          | 0.7           |
+| external_kMinDensity                 | 0.6             | [0,1]                    | Minimum number of keys in each node (proportion to total size) before contraction.| 0.6          |
+| external_kAppendMostlyThreshold      | 0.9             | [0,1]                    | Determines when to consider workload as mostly append.                          | 0.9           |
+| external_kEvictionRate               | 0.01            | [0,1]                    | Rate of eviction for old nodes from memory                                      | 0.01          |
+| external_kPrefetchRate               | 0.1             | [0,1]                    | Rate at which nodes are prefetched into memory                                  | 0.1           |
+| external_kRecoveryRate               | 0.5             | [0,1]                    | Rate at which nodes are recovered from storage during failure                   | 0.5           |
+| external_kConcurrencyLevel           | 8               | [1, ∞)                   | Level of concurrency for parallel operations                                    | 8             |
+| external_kParallelism                | 4               | [1, ∞)                   | Degree of parallelism in data processing                                        | 4             |
+| external_kBatchSize                  | 128             | [1, ∞)                   | Size of the batch for bulk operations                                           | 128           |

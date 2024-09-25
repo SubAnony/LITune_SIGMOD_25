@@ -1,0 +1,4 @@
+searchTime:0.000984642
+insertTime:5.87662e-05
+deleteTime:4.26079e-05
+totalTime:0.00108602

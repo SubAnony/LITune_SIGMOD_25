@@ -1,0 +1,55 @@
+//Check src/params.h for detailed explanation of each parameters.
+
+#define external_kMaxLeafNodeSize 256
+    Range: multiples of 2 (i.e. 64,2128,256,512)
+    Default: 256
+
+#define external_kMaxLeafNodeSizeExternal 1024
+    Range: multiples of 2 (i.e. 64,2128,256,512)
+    Default: 1024
+
+#define external_kAlgorithmThreshold 60000
+    Range: [max(external_kMaxLeafNodeSize,external_kMaxLeafNodeSizeExternal)+1, 
+            numeric_limits<int>::max()]
+
+#define external_kMemoryAccessTime 80.09
+#define external_kLRRootTime 11.54
+#define external_kPLRRootTime 29.62
+#define external_kLRInnerTime kMemoryAccessTime + 5.23
+#define external_kPLRInnerTime kMemoryAccessTime + 22.8
+#define external_kHisInnerTime kMemoryAccessTime + 18.44
+#define external_kBSInnerTime kMemoryAccessTime + 26.38
+#define external_kCostMoveTime 6.25
+#define external_kLeafBaseTime kMemoryAccessTime + 25.4
+#define external_kCostBSTime 10.9438
+    Range: Double
+    Default: See above and src/params.h
+    **Note: these values are timings in (ns). Not sure why they are hard-coded 
+            but these values approximates of how each long each action will take.
+
+**** IMPORTANT ****
+#define external_lambda -1
+    Range: -1 Int or [0.1 100.0] Float
+    Default: -1 (This means the main file will calculate a lambda value based
+                on external_kMaxLeafNodeSize)
+                (You can also manually set it to between 0.1 and 100 since
+                it is a percentage.)
+
+### Constant Parameters in CARMI
+
+| Hyperparameter                       | Value           | Range                    | Description                                                                     | Default Value |
+|--------------------------------------|-----------------|--------------------------|---------------------------------------------------------------------------------|---------------|
+| external_kMaxLeafNodeSize            | 256             | multiples of 2           | Maximum size of leaf nodes                                                      | 256           |
+| external_kMaxLeafNodeSizeExternal    | 1024            | multiples of 2           | Maximum size of leaf nodes for external memory                                  | 1024          |
+| external_kAlgorithmThreshold         | 60000           | [max(external_kMaxLeafNodeSize, external_kMaxLeafNodeSizeExternal)+1, numeric_limits<int>::max()] | Threshold for algorithm decision        | 60000         |
+| external_kMemoryAccessTime           | 80.09           | Double                   | Memory access time                                                              | 80.09         |
+| external_kLRRootTime                 | 11.54           | Double                   | Linear regression root time                                                     | 11.54         |
+| external_kPLRRootTime                | 29.62           | Double                   | Piecewise linear regression root time                                           | 29.62         |
+| external_kLRInnerTime                | 85.32           | Double                   | Linear regression inner node time                                               | 85.32         |
+| external_kPLRInnerTime               | 102.89          | Double                   | Piecewise linear regression inner node time                                     | 102.89        |
+| external_kHisInnerTime               | 98.53           | Double                   | Histogram-based inner node time                                                 | 98.53         |
+| external_kBSInnerTime                | 106.47          | Double                   | Binary search inner node time                                                   | 106.47        |
+| external_kCostMoveTime               | 6.25            | Double                   | Cost of moving time                                                             | 6.25          |
+| external_kLeafBaseTime               | 105.49          | Double                   | Leaf node base time                                                             | 105.49        |
+| external_kCostBSTime                 | 10.9438         | Double                   | Cost of binary search time                                                      | 10.9438       |
+| external_lambda                      | -1              | -1 Int or [0.1, 100.0]   | Lambda value for calculation                                                    | -1            |

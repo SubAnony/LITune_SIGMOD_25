@@ -1,0 +1,36 @@
+//Check src/params.h for detailed explanation of each parameters.
+
+#define external_kMaxLeafNodeSize 256
+    Range: multiples of 2 (i.e. 64,2128,256,512)
+    Default: 256
+
+#define external_kMaxLeafNodeSizeExternal 1024
+    Range: multiples of 2 (i.e. 64,2128,256,512)
+    Default: 1024
+
+#define external_kAlgorithmThreshold 60000
+    Range: [max(external_kMaxLeafNodeSize,external_kMaxLeafNodeSizeExternal)+1, 
+            numeric_limits<int>::max()]
+
+#define external_kMemoryAccessTime 80.09
+#define external_kLRRootTime 11.54
+#define external_kPLRRootTime 29.62
+#define external_kLRInnerTime kMemoryAccessTime + 5.23
+#define external_kPLRInnerTime kMemoryAccessTime + 22.8
+#define external_kHisInnerTime kMemoryAccessTime + 18.44
+#define external_kBSInnerTime kMemoryAccessTime + 26.38
+#define external_kCostMoveTime 6.25
+#define external_kLeafBaseTime kMemoryAccessTime + 25.4
+#define external_kCostBSTime 10.9438
+    Range: Double
+    Default: See above and src/params.h
+    **Note: these values are timings in (ns). Not sure why they are hard-coded 
+            but these values approximates of how each long each action will take.
+
+**** IMPORTANT ****
+#define external_lambda -1
+    Range: -1 Int or [0.1 100.0] Float
+    Default: -1 (This means the main file will calculate a lambda value based
+                on external_kMaxLeafNodeSize)
+                (You can also manually set it to between 0.1 and 100 since
+                it is a percentage.)

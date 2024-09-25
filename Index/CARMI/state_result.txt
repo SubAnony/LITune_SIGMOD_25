@@ -1,0 +1,15 @@
+no_leaf:4951
+lambda:48.6653
+prefetchEnd:-1
+querySize:202000
+reservedSpace:65536
+isInitMode:0
+noInsertQueryKeyVisit:101000
+remainingNode:4804
+scanLeafRange:4804
+noFindQueryKeyVisit:101000
+avgfindQueryVisitPerKey:1
+costSize:219
+avgTimeCost:0.0402169
+avgSpaceCost:0.000798195
+avgTotalCost:0.0790613
