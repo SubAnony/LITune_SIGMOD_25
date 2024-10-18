@@ -1,4 +1,4 @@
-# LITune ICDE 2025 Setup and Evaluation Guide
+# LITune SIGMOD 2025 Setup and Evaluation Guide
 
 
 This is the code repo for Paper **A New Paradigm in Tuning Learned Indexes: A Reinforcement Learning-Enhanced Approach**
