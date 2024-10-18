@@ -1,11 +1,11 @@
 # LITune ICDE 2025 Setup and Evaluation Guide
 
 
-This is the code repo for Paper **LITune: An End-to-End Automatic Tuning System for Learned Index via Deep Reinforcement Learning**
+This is the code repo for Paper **A New Paradigm in Tuning Learned Indexes: A Reinforcement Learning-Enhanced Approach**
 
-Track Name: RESEARCH PAPER FIRST SUBMISSION CYCLE
+Track Name: Round 4 Paper Submissions
 
-Paper ID: 94
+Paper ID: 1129
 
 You can check some supplemental info here: [Supplemental Materials](./supplemental_materials/README.md)
 
